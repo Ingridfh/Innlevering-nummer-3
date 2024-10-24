@@ -1,0 +1,81 @@
+---
+title: "Assignment 4"
+author: "Ingrid"
+date: "`r Sys.Date(10.10)`"
+format: 
+  html:
+    toc: true
+    toc-location: left  # Plassering av innholdsfortegnelsen
+bibliography: references.bib  # Navnet på bib-filen din
+---
+
+---
+
+## Litteraturgjennomgang
+
+## 1. Introduksjon til det Bredere Problemet
+Alder har en betydelig innvirkning på fysisk kapasitet, spesielt VO2max, som er en viktig indikator for aerob kapasitet. Dette er relevant både for eldre voksne og populasjoner med spesifikke helseutfordringer. Mange studier har undersøkt hvordan ulike treningsprotokoller kan forbedre VO2max. Denne gjennomgangen fokuserer på fem sentrale studier som analyserer effekten av alder og treningsintervensjoner på fysisk funksjon og VO2max.
+
+## 2. Forskningsspørsmål og Hypoteser
+Alle fem studier undersøker hvordan alder og forskjellige treningsmetoder påvirker VO2max, men med variasjon i spesifikke forskningsspørsmål:
+@Støren2017:: Undersøkte effekten av utholdenhetstrening på VO2max hos middelaldrende og eldre voksne.
+@Wisløff2007: Studerte hvordan høyintensiv intervalltrening (HIIT) påvirker VO2max hos hjertesyke, med fokus på aldersmessige forskjeller i treningsrespons.
+@Boule2003: Utforsket hvordan aerob trening påvirker VO2max hos eldre voksne med type 2-diabetes.
+@Reimers2018: Evaluert effekten av daglig fysisk aktivitet på VO2max hos barn og voksne i ulike aldre.
+@Paterson2010: Vurderte effekten av regelmessig fysisk aktivitet på fysisk funksjon og VO2max i aldrende populasjoner.
+I alle studiene formuleres forskningsspørsmålene som hypoteser, for eksempel: "Høyintensiv trening vil forbedre VO2max hos eldre voksne, men yngre deltakere vil vise en raskere forbedring".
+
+## 3. Logisk Kobling mellom Problemstilling og Forskningsspørsmål
+Den logiske forbindelsen mellom problemstillingen og forskningsspørsmålene er tydelig i alle studiene. De bygger på tidligere forskning som dokumenterer sammenhengen mellom fysisk aktivitet og forbedret fysisk kapasitet, spesielt VO2max. Forfatterne antar at treningsintervensjoner vil forbedre VO2max, men at aldring påvirker treningsresponsen. Dette kan knyttes til teorier om fysiologiske tilpasninger i aldrende muskler og kardiovaskulære systemer @Paterson2010.
+
+## 4. Studieoppsett og Metodikk
+Ved å bruke @Hulley2013, kapitlene 7–13, kan vi analysere forskjellene og likhetene i metodene mellom studiene:
+
+@Støren2017:
+Utvalg: 60 middelaldrende og eldre voksne (50–70 år), rekruttert fra treningssentre.
+Design: Randomisert kontrollert studie, delt inn i trenings- og kontrollgrupper.
+Variabler: Uavhengig variabel var treningsprogrammet (moderat til høy intensitet), mens avhengig variabel var VO2max.
+Statistiske analyser: ANOVA for å sammenligne VO2max-forandringer mellom gruppene.
+
+@Wisløff2007:
+Utvalg: 27 eldre pasienter med hjerteproblemer.
+Design: Randomisert kontrollert studie med fokus på HIIT.
+Variabler: Uavhengig variabel var treningsintensiteten, og avhengig variabel var endring i VO2max.
+Statistiske analyser: Regressjonsanalyser og t-tester.
+
+@Boule2003:
+Utvalg: 33 eldre voksne med type 2-diabetes.
+Design: Longitudinelt design med 12 ukers treningsintervensjoner.
+Variabler: Treningsintensitet og frekvens som uavhengige variabler, VO2max som avhengig variabel.
+Statistiske analyser: ANCOVA for å vurdere effekten av treningsintensitet.
+
+@Reimers2018:
+Utvalg: Barn og voksne (7–65 år).
+Design: Observasjonsstudie hvor daglig fysisk aktivitet ble registrert.
+Variabler: Mengde fysisk aktivitet som uavhengig variabel, VO2max som avhengig variabel.
+Statistiske analyser: Korrelasjonsanalyser og lineær regresjon.
+
+@Paterson2010:
+Utvalg: Eldre voksne (65+ år), rekruttert fra seniorhjem og treningsprogrammer.
+Design: Systematisk gjennomgang av tidligere randomiserte kontrollerte studier.
+Variabler: Sammenligning av ulike typer fysisk aktivitet.
+Statistiske analyser: Meta-analyse for å evaluere effekten av trening.
+
+## 5. Resultater
+@Støren2017: Fant signifikante forbedringer i VO2max hos både middelaldrende og eldre voksne, med større forbedringer hos yngre deltakere.
+@Wisløff2007: Viste at HIIT ga større forbedringer i VO2max sammenlignet med moderat trening.
+@Boule2003: Aerob trening økte VO2max signifikant hos eldre voksne med diabetes, spesielt ved høyere intensitet.
+@Reimers2018: Daglig fysisk aktivitet var sterkt korrelert med VO2max, med størst forbedringer blant barn og unge voksne.
+@Paterson2010: Regelmessig fysisk aktivitet forbedrer VO2max hos eldre voksne, avhengig av treningsintensitet.
+
+## 6. Konklusjoner
+@Støren2017 konkluderte med at utholdenhetstrening effektivt forbedrer VO2max hos middelaldrende og eldre voksne, men yngre individer responderer raskere.
+@Wisløff2007 fremhevet at HIIT er effektivt for å forbedre VO2max, også blant eldre med hjerteproblemer.
+@Boule2003 understreket viktigheten av trening for eldre med diabetes.
+@Reimers2018 viste at daglig fysisk aktivitet er viktig for å opprettholde en høy VO2max gjennom livsløpet.
+@Paterson2010 fant at regelmessig fysisk aktivitet er avgjørende for å motvirke aldersrelatert nedgang i VO2max.
+
+## 7. Diskusjon av Metodiske Likheter og Forskjeller
+Flere fellestrekk finnes mellom studiene, spesielt bruken av VO2max som primær utfallsvariabel. @Støren2017 og @Wisløff2007 benytter randomiserte kontrollstudier, mens @Boule2003 fokuserer på en spesifikk sykdomsgruppe. @Reimers2018 bruker en observasjonell metode, noe som kan påvirke kausaliteten. @Paterson2010, som er en systematisk gjennomgang, oppsummerer bredere sammenligninger enn de andre studiene. Dette mangfoldet av metoder gir et nyansert bilde av hvordan treningsintervensjoner kan påvirke VO2max, og fremhever behovet for videre forskning for å utforske ulike tilnærminger og populasjoner.
+
+

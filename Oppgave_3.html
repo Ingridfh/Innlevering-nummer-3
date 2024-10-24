@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ingrid Hansen">
+
+<title>Assignment 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Oppgave_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Oppgave_3_files/libs/quarto-html/quarto.js"></script>
+<script src="Oppgave_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="Oppgave_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Oppgave_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Oppgave_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Oppgave_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Oppgave_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Oppgave_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Oppgave_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#oppgave-1" id="toc-oppgave-1" class="nav-link active" data-scroll-target="#oppgave-1">Oppgave: 1</a>
+  <ul class="collapse">
+  <li><a href="#simulering-av-populasjonen-trekke-ut-to-tilfeldige-utvalg-med-størrelsene-8-og-40-tilpasse-lineære-modeller-og-analysere-resultatene." id="toc-simulering-av-populasjonen-trekke-ut-to-tilfeldige-utvalg-med-størrelsene-8-og-40-tilpasse-lineære-modeller-og-analysere-resultatene." class="nav-link" data-scroll-target="#simulering-av-populasjonen-trekke-ut-to-tilfeldige-utvalg-med-størrelsene-8-og-40-tilpasse-lineære-modeller-og-analysere-resultatene.">Simulering av populasjonen, trekke ut to tilfeldige utvalg (med størrelsene 8 og 40), tilpasse lineære modeller og analysere resultatene.</a></li>
+  <li><a href="#analyse-av-resultatene" id="toc-analyse-av-resultatene" class="nav-link" data-scroll-target="#analyse-av-resultatene">Analyse av resultatene</a></li>
+  <li><a href="#oppsummering" id="toc-oppsummering" class="nav-link" data-scroll-target="#oppsummering">Oppsummering</a></li>
+  </ul></li>
+  <li><a href="#oppgave-2-forskjeller-mellom-m1-og-m2" id="toc-oppgave-2-forskjeller-mellom-m1-og-m2" class="nav-link" data-scroll-target="#oppgave-2-forskjeller-mellom-m1-og-m2">Oppgave 2: Forskjeller mellom m1 og m2</a>
+  <ul class="collapse">
+  <li><a href="#utvalgsstørrelse" id="toc-utvalgsstørrelse" class="nav-link" data-scroll-target="#utvalgsstørrelse">Utvalgsstørrelse</a></li>
+  <li><a href="#variabilitet-i-dataene" id="toc-variabilitet-i-dataene" class="nav-link" data-scroll-target="#variabilitet-i-dataene">Variabilitet i Dataene</a></li>
+  <li><a href="#statistisk-signifikans" id="toc-statistisk-signifikans" class="nav-link" data-scroll-target="#statistisk-signifikans">Statistisk Signifikans</a></li>
+  <li><a href="#estimater-av-effektstørrelse" id="toc-estimater-av-effektstørrelse" class="nav-link" data-scroll-target="#estimater-av-effektstørrelse">Estimater av Effektstørrelse</a></li>
+  <li><a href="#konfidensintervaller" id="toc-konfidensintervaller" class="nav-link" data-scroll-target="#konfidensintervaller">Konfidensintervaller</a></li>
+  <li><a href="#konklusjon" id="toc-konklusjon" class="nav-link" data-scroll-target="#konklusjon">Konklusjon</a></li>
+  </ul></li>
+  <li><a href="#oppgave-3-hvorfor-bruker-vi-skyggeområdet-i-de-nedre-og-øvre-endene-av-t-fordelingen" id="toc-oppgave-3-hvorfor-bruker-vi-skyggeområdet-i-de-nedre-og-øvre-endene-av-t-fordelingen" class="nav-link" data-scroll-target="#oppgave-3-hvorfor-bruker-vi-skyggeområdet-i-de-nedre-og-øvre-endene-av-t-fordelingen">Oppgave 3: Hvorfor bruker vi skyggeområdet i de nedre og øvre endene av t-fordelingen?</a></li>
+  <li><a href="#oppgave-4" id="toc-oppgave-4" class="nav-link" data-scroll-target="#oppgave-4">Oppgave 4:</a>
+  <ul class="collapse">
+  <li><a href="#forklaring-av-resultatene" id="toc-forklaring-av-resultatene" class="nav-link" data-scroll-target="#forklaring-av-resultatene">Forklaring av Resultatene</a></li>
+  <li><a href="#sammenligning-av-se-og-sd" id="toc-sammenligning-av-se-og-sd" class="nav-link" data-scroll-target="#sammenligning-av-se-og-sd">Sammenligning av SE og SD:</a></li>
+  <li><a href="#definere-standard-error-se" id="toc-definere-standard-error-se" class="nav-link" data-scroll-target="#definere-standard-error-se">Definere Standard Error (SE)</a></li>
+  <li><a href="#oppsummering-1" id="toc-oppsummering-1" class="nav-link" data-scroll-target="#oppsummering-1">Oppsummering</a></li>
+  </ul></li>
+  <li><a href="#oppgave-5-lager-histogram-av-p---verdier-fra-de-to-forskjellige-utvalgsstørrelsene" id="toc-oppgave-5-lager-histogram-av-p---verdier-fra-de-to-forskjellige-utvalgsstørrelsene" class="nav-link" data-scroll-target="#oppgave-5-lager-histogram-av-p---verdier-fra-de-to-forskjellige-utvalgsstørrelsene">Oppgave 5: Lager histogram av P - verdier fra de to forskjellige utvalgsstørrelsene</a>
+  <ul class="collapse">
+  <li><a href="#andelen-signifikante-tester" id="toc-andelen-signifikante-tester" class="nav-link" data-scroll-target="#andelen-signifikante-tester">Andelen Signifikante Tester</a></li>
+  <li><a href="#statistisk-power" id="toc-statistisk-power" class="nav-link" data-scroll-target="#statistisk-power">Statistisk Power</a></li>
+  <li><a href="#tolkning-av-resultatene" id="toc-tolkning-av-resultatene" class="nav-link" data-scroll-target="#tolkning-av-resultatene">Tolkning av Resultatene</a></li>
+  <li><a href="#effekt-av-utvalgsstørrelse" id="toc-effekt-av-utvalgsstørrelse" class="nav-link" data-scroll-target="#effekt-av-utvalgsstørrelse">Effekt av Utvalgsstørrelse</a></li>
+  </ul></li>
+  <li><a href="#oppgave-6-antall-studier-som-finner-en-statistisk-signifikant-effekt-ved-et-signifikansnivå-på-0.05-for-hver-utvalgsstørrelse" id="toc-oppgave-6-antall-studier-som-finner-en-statistisk-signifikant-effekt-ved-et-signifikansnivå-på-0.05-for-hver-utvalgsstørrelse" class="nav-link" data-scroll-target="#oppgave-6-antall-studier-som-finner-en-statistisk-signifikant-effekt-ved-et-signifikansnivå-på-0.05-for-hver-utvalgsstørrelse">Oppgave 6: Antall studier som finner en statistisk signifikant effekt ved et signifikansnivå på 0.05 for hver utvalgsstørrelse</a>
+  <ul class="collapse">
+  <li><a href="#resultater" id="toc-resultater" class="nav-link" data-scroll-target="#resultater">Resultater</a></li>
+  <li><a href="#effekten-av-utvalgsstørrelse" id="toc-effekten-av-utvalgsstørrelse" class="nav-link" data-scroll-target="#effekten-av-utvalgsstørrelse">Effekten av Utvalgsstørrelse</a></li>
+  <li><a href="#statistisk-power-1" id="toc-statistisk-power-1" class="nav-link" data-scroll-target="#statistisk-power-1">Statistisk Power</a></li>
+  <li><a href="#konsekvenser-for-forskning" id="toc-konsekvenser-for-forskning" class="nav-link" data-scroll-target="#konsekvenser-for-forskning">Konsekvenser for forskning</a></li>
+  <li><a href="#konklusjon-1" id="toc-konklusjon-1" class="nav-link" data-scroll-target="#konklusjon-1">Konklusjon</a></li>
+  </ul></li>
+  <li><a href="#oppgave-7-tar-utgangspunkt-i-de-tidligere-resultatene-fra-power-beregningen-om-de-ulike-utvalgsstørrelsene-stemmer-overens-med-resultatene-fra-simuleringen." id="toc-oppgave-7-tar-utgangspunkt-i-de-tidligere-resultatene-fra-power-beregningen-om-de-ulike-utvalgsstørrelsene-stemmer-overens-med-resultatene-fra-simuleringen." class="nav-link" data-scroll-target="#oppgave-7-tar-utgangspunkt-i-de-tidligere-resultatene-fra-power-beregningen-om-de-ulike-utvalgsstørrelsene-stemmer-overens-med-resultatene-fra-simuleringen.">Oppgave 7: tar utgangspunkt i de tidligere resultatene fra power-beregningen om de ulike utvalgsstørrelsene stemmer overens med resultatene fra simuleringen.</a>
+  <ul class="collapse">
+  <li><a href="#power" id="toc-power" class="nav-link" data-scroll-target="#power">Power</a></li>
+  <li><a href="#betydningen-av-utvalgsstørrelse" id="toc-betydningen-av-utvalgsstørrelse" class="nav-link" data-scroll-target="#betydningen-av-utvalgsstørrelse">Betydningen av utvalgsstørrelse</a></li>
+  <li><a href="#praktisk-implikasjon" id="toc-praktisk-implikasjon" class="nav-link" data-scroll-target="#praktisk-implikasjon">Praktisk implikasjon</a></li>
+  <li><a href="#kontekst-av-simuleringen" id="toc-kontekst-av-simuleringen" class="nav-link" data-scroll-target="#kontekst-av-simuleringen">Kontekst av simuleringen</a></li>
+  <li><a href="#oppsummering-2" id="toc-oppsummering-2" class="nav-link" data-scroll-target="#oppsummering-2">Oppsummering</a></li>
+  </ul></li>
+  <li><a href="#oppgave-8" id="toc-oppgave-8" class="nav-link" data-scroll-target="#oppgave-8">Oppgave 8:</a>
+  <ul class="collapse">
+  <li><a href="#resultat" id="toc-resultat" class="nav-link" data-scroll-target="#resultat">Resultat</a></li>
+  <li><a href="#konklusjon-2" id="toc-konklusjon-2" class="nav-link" data-scroll-target="#konklusjon-2">Konklusjon</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ingrid Hansen </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="oppgave-1" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-1">Oppgave: 1</h2>
+<section id="simulering-av-populasjonen-trekke-ut-to-tilfeldige-utvalg-med-størrelsene-8-og-40-tilpasse-lineære-modeller-og-analysere-resultatene." class="level3">
+<h3 class="anchored" data-anchor-id="simulering-av-populasjonen-trekke-ut-to-tilfeldige-utvalg-med-størrelsene-8-og-40-tilpasse-lineære-modeller-og-analysere-resultatene.">Simulering av populasjonen, trekke ut to tilfeldige utvalg (med størrelsene 8 og 40), tilpasse lineære modeller og analysere resultatene.</h3>
+</section>
+<section id="analyse-av-resultatene" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-av-resultatene">Analyse av resultatene</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Resultater fra modell for n = 8:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimert gjennomsnitt (Intercept): 1.839727 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Standardfeil (SE): 1.251293 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-verdi: 1.470261 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-verdi: 0.1849546 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Resultater fra modell for n = 40:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimert gjennomsnitt (Intercept): 1.564161 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Standardfeil (SE): 0.4774117 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-verdi: 3.276336 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p-verdi: 0.002212965 </code></pre>
+</div>
+</div>
+</section>
+<section id="oppsummering" class="level3">
+<h3 class="anchored" data-anchor-id="oppsummering">Oppsummering</h3>
+<p>Modell for n = 8 (m1) Estimert gjennomsnitt (Intercept): 1.84</p>
+<p>Dette er gjennomsnittet av de 8 observasjonene i utvalget, som indikerer at den gjennomsnittlige forskjellen mellom de to behandlingene er estimert til å være 1.84 (Field, 2013). Standardfeil (SE): 1.25</p>
+<p>Standardfeilen representerer usikkerheten i estimatet av gjennomsnittet. En høy SE (1.25) indikerer stor variasjon i dataene, sannsynligvis på grunn av den lille størrelsen på utvalget (n = 8), som kan føre til større usikkerhet (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>). t-verdi: 1.47</p>
+<p>t-verdien er forholdet mellom estimatet og standardfeilen. En t-verdi på 1.47 indikerer at estimatet er 1.47 standardfeil unna null (<span class="citation" data-cites="harlow2016">Harlow, Muliak, and Steiger (<a href="#ref-harlow2016" role="doc-biblioref">2016</a>)</span>). p-verdi: 0.185</p>
+<p>P-verdien representerer sannsynligheten for å observere en t-verdi så ekstrem som den vi har, under antagelsen om at nullhypotesen er sann. En p-verdi på 0.185 er høyere enn 0.05, noe som indikerer at vi ikke kan avvise nullhypotesen (<span class="citation" data-cites="wasserstein2016">Wasserstein and Lazar (<a href="#ref-wasserstein2016" role="doc-biblioref">2016</a>)</span>). Modell for n = 40 (m2) Estimert gjennomsnitt (Intercept): 1.56</p>
+<p>Gjennomsnittet av de 40 observasjonene er 1.56, som også indikerer en forskjell mellom behandlingene. Standardfeil (SE): 0.48</p>
+<p>Standardfeilen er mye lavere i dette tilfellet, noe som indikerer at estimatet av gjennomsnittet er mer presist (<span class="citation" data-cites="bland1996">Bland and Altman (<a href="#ref-bland1996" role="doc-biblioref">1996</a>)</span>). t-verdi: 3.28</p>
+<p>T-verdien på 3.28 viser at estimatet er 3.28 standardfeil unna null, noe som tyder på en sterkere effekt (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>). p-verdi: 0.0022</p>
+<p>P-verdien er betydelig lavere enn 0.05, noe som indikerer at vi kan avvise nullhypotesen, og at det er en statistisk signifikant forskjell mellom behandlingene (<span class="citation" data-cites="wasserstein2016">Wasserstein and Lazar (<a href="#ref-wasserstein2016" role="doc-biblioref">2016</a>)</span>).</p>
+</section>
+</section>
+<section id="oppgave-2-forskjeller-mellom-m1-og-m2" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-2-forskjeller-mellom-m1-og-m2">Oppgave 2: Forskjeller mellom m1 og m2</h2>
+<section id="utvalgsstørrelse" class="level3">
+<h3 class="anchored" data-anchor-id="utvalgsstørrelse">Utvalgsstørrelse</h3>
+<p>Den mest åpenbare forskjellen mellom de to studiene er størrelsen på utvalget. Utvalg 1 (m1) hadde kun 8 observasjoner, mens utvalg 2 (m2) hadde 40 observasjoner. Større utvalg gir mer presise estimater av gjennomsnittet, noe som reduserer usikkerheten (standardfeilen) i analysen. Dette forklarer hvorfor standardfeilen i m2 er betydelig lavere enn i m1 (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>).</p>
+</section>
+<section id="variabilitet-i-dataene" class="level3">
+<h3 class="anchored" data-anchor-id="variabilitet-i-dataene">Variabilitet i Dataene</h3>
+<p>Variabiliteten i dataene påvirker både standardfeilen og t-verdien. I m1 er det større variasjon i residualene (3.54) sammenlignet med m2 (3.02). Høyere variasjon kan føre til høyere standardfeil og lavere t-verdi, noe som resulterer i høyere p-verdi i m1 (<span class="citation" data-cites="field2018">Field (<a href="#ref-field2018" role="doc-biblioref">2018</a>)</span>).</p>
+</section>
+<section id="statistisk-signifikans" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-signifikans">Statistisk Signifikans</h3>
+<p>Resultatene fra m2 er statistisk signifikante med en p-verdi på 0.0022, mens m1 har en p-verdi på 0.185, som ikke er signifikant. Dette viser hvordan større utvalg øker sjansen for å oppdage reelle effekter. Større utvalg reduserer sjansen for feilaktige negative resultater (Type II-feil) (<span class="citation" data-cites="wasserstein2016">Wasserstein and Lazar (<a href="#ref-wasserstein2016" role="doc-biblioref">2016</a>)</span>).</p>
+</section>
+<section id="estimater-av-effektstørrelse" class="level3">
+<h3 class="anchored" data-anchor-id="estimater-av-effektstørrelse">Estimater av Effektstørrelse</h3>
+<p>Estimert gjennomsnitt for m1 er 1.84, mens det for m2 er 1.56. Forskjellen mellom estimatene kan delvis tilskrives støyen som følger med et lite utvalg. Større utvalg som i m2 gir en mer stabil og pålitelig vurdering av den faktiske effekten (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>).</p>
+</section>
+<section id="konfidensintervaller" class="level3">
+<h3 class="anchored" data-anchor-id="konfidensintervaller">Konfidensintervaller</h3>
+<p>Et annet aspekt er konfidensintervallene for estimatene. For m1, som har høyere standardfeil, vil konfidensintervallet være bredere, noe som indikerer større usikkerhet om den sanne effekten. I m2 vil konfidensintervallet være smalere og gi en mer presis indikasjon på den faktiske effekten (<span class="citation" data-cites="bland1996">Bland and Altman (<a href="#ref-bland1996" role="doc-biblioref">1996</a>)</span>).</p>
+</section>
+<section id="konklusjon" class="level3">
+<h3 class="anchored" data-anchor-id="konklusjon">Konklusjon</h3>
+<p>Forskjellene mellom resultatene fra m1 og m2 illustrerer viktigheten av utvalgsstørrelse i statistiske analyser. Større utvalg gir mer presise estimater og øker sjansen for å oppdage statistisk signifikante forskjeller. Dette understreker nødvendigheten av å planlegge tilstrekkelige utvalgsstørrelser i forskningsdesign for å oppnå pålitelige resultater (<span class="citation" data-cites="field2018">Field (<a href="#ref-field2018" role="doc-biblioref">2018</a>)</span>) (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Oppgave_3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="oppgave-3-hvorfor-bruker-vi-skyggeområdet-i-de-nedre-og-øvre-endene-av-t-fordelingen" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-3-hvorfor-bruker-vi-skyggeområdet-i-de-nedre-og-øvre-endene-av-t-fordelingen">Oppgave 3: Hvorfor bruker vi skyggeområdet i de nedre og øvre endene av t-fordelingen?</h2>
+<p>T-fordelingen er en viktig sannsynlighetsfordeling som brukes i hypotesetesting, spesielt med små utvalg. Den har tykkere haler sammenlignet med normalfordelingen, noe som reflekterer usikkerheten som er til stede når utvalget er lite (<span class="citation" data-cites="moore2013">Moore, Notz, and Fligner (<a href="#ref-moore2013" role="doc-biblioref">2013</a>)</span>).</p>
+<p>Skyggeområdet i plottet vårt representerer de t-verdiene som er like ekstreme eller mer ekstreme enn vår observerte t-verdi (1.47), både på den positive og negative siden. Dette området er avgjørende for å beregne p-verdien, som i vårt tilfelle er 0.185. Denne p-verdien indikerer at 18.5% av t-verdiene ville være like ekstreme eller mer ekstreme enn den observerte t-verdien hvis nullhypotesen er sann (<span class="citation" data-cites="field2018">Field (<a href="#ref-field2018" role="doc-biblioref">2018</a>)</span>).</p>
+<p>Plottet vårt visualiserer denne fordelingen og skyggeområdet, og gir oss en intuitiv forståelse av resultatene fra hypotesetesting. I sum gir skyggeområdet oss muligheten til å vurdere styrken av bevisene mot nullhypotesen, og derfor er det en essensiell del av den statistiske analysen (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>).</p>
+</section>
+<section id="oppgave-4" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-4">Oppgave 4:</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Standardavvik for n=8: 1.070843 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gjennomsnittlig SE for n=8: 1.021374 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Standardavvik for n=40: 0.4838475 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gjennomsnittlig SE for n=40: 0.4696954 </code></pre>
+</div>
+</div>
+<section id="forklaring-av-resultatene" class="level3">
+<h3 class="anchored" data-anchor-id="forklaring-av-resultatene">Forklaring av Resultatene</h3>
+<p>Standardavvik (SD) vs.&nbsp;Standard Error (SE):</p>
+<p>Standardavviket for n=8 er høyere enn for n=40, noe som indikerer større variasjon i estimatene for det mindre utvalget. Dette er i tråd med funnene fra (<span class="citation" data-cites="field2018">Field (<a href="#ref-field2018" role="doc-biblioref">2018</a>)</span>) som beskriver hvordan mindre utvalg fører til høyere usikkerhet i estimatene.</p>
+<p>Standardfeilen (SE) er også høyere for n=8, noe som støtter prinsippet om at mindre utvalg fører til større usikkerhet. Ifølge (<span class="citation" data-cites="moore2016">Moore, McCabe, and Craig (<a href="#ref-moore2016" role="doc-biblioref">2016</a>)</span>) er SE en viktig målestokk for hvor presist et estimat representerer det sanne parameteret.</p>
+</section>
+<section id="sammenligning-av-se-og-sd" class="level3">
+<h3 class="anchored" data-anchor-id="sammenligning-av-se-og-sd">Sammenligning av SE og SD:</h3>
+<p>Gjennomsnittlig SE for begge utvalg er nær standardavviket for estimatene. Dette er typisk, da SE gir en indikasjon på variasjonen i estimatene i forhold til utvalgsstørrelsen (<span class="citation" data-cites="lumley2010">Lumley (<a href="#ref-lumley2010" role="doc-biblioref">2010</a>)</span>). For n=40 er både standardavviket og SE betydelig lavere, noe som tyder på mer stabile og pålitelige estimater med større utvalg. Dette bekreftes av (<span class="citation" data-cites="biau2008">Biau, Kerneis, and Porcher (<a href="#ref-biau2008" role="doc-biblioref">2008</a>)</span>), som viser at større utvalg gir mer presise estimater.</p>
+</section>
+<section id="definere-standard-error-se" class="level3">
+<h3 class="anchored" data-anchor-id="definere-standard-error-se">Definere Standard Error (SE)</h3>
+<p>Standardfeil (SE) kan defineres som et mål på usikkerheten i estimatet, som indikerer hvor mye estimatet kan forventes å variere fra det sanne befolkningsparameteret. SE er essensiell i hypotesetesting og konfidensintervall-estimering (<span class="citation" data-cites="wackerly2008">Wackerly, Mendenhall, and Scheaffer (<a href="#ref-wackerly2008" role="doc-biblioref">2008</a>)</span>).</p>
+</section>
+<section id="oppsummering-1" class="level3">
+<h3 class="anchored" data-anchor-id="oppsummering-1">Oppsummering</h3>
+<p>Resultatene viser hvordan utvalgsstørrelse påvirker variabiliteten i estimater, og understreker betydningen av å bruke tilstrekkelige utvalg for å oppnå pålitelige resultater i statistiske analyser.</p>
+</section>
+</section>
+<section id="oppgave-5-lager-histogram-av-p---verdier-fra-de-to-forskjellige-utvalgsstørrelsene" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-5-lager-histogram-av-p---verdier-fra-de-to-forskjellige-utvalgsstørrelsene">Oppgave 5: Lager histogram av P - verdier fra de to forskjellige utvalgsstørrelsene</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Oppgave_3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="andelen-signifikante-tester" class="level3">
+<h3 class="anchored" data-anchor-id="andelen-signifikante-tester">Andelen Signifikante Tester</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      n sig_results
+  &lt;dbl&gt;       &lt;dbl&gt;
+1     8       0.227
+2    40       0.865</code></pre>
+</div>
+</div>
+</section>
+<section id="statistisk-power" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-power">Statistisk Power</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     One-sample t test power calculation 
+
+              n = 40
+              d = 0.5
+      sig.level = 0.05
+          power = 0.8693981
+    alternative = two.sided</code></pre>
+</div>
+</div>
+</section>
+<section id="tolkning-av-resultatene" class="level3">
+<h3 class="anchored" data-anchor-id="tolkning-av-resultatene">Tolkning av Resultatene</h3>
+<p>Statistisk Power: En power på omtrent 0.87 indikerer at det er 87% sjanse for å oppdage en faktisk effekt dersom den eksisterer. Dette er generelt ansett som en god power, ettersom en power over 0.80 ofte er ønskelig i forskningsdesign.</p>
+</section>
+<section id="effekt-av-utvalgsstørrelse" class="level3">
+<h3 class="anchored" data-anchor-id="effekt-av-utvalgsstørrelse">Effekt av Utvalgsstørrelse</h3>
+<p>Når man sammenligner med p-verdiene fra histogrammene for de to utvalgsstørrelsene (8 og 40), ser man at utvalget med 40 har flere signifikante resultater (p &lt; 0.05) enn utvalget med 8. Dette skyldes at større utvalg gir mer presise estimater og dermed høyere sjanser for å oppdage effekter.</p>
+</section>
+</section>
+<section id="oppgave-6-antall-studier-som-finner-en-statistisk-signifikant-effekt-ved-et-signifikansnivå-på-0.05-for-hver-utvalgsstørrelse" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-6-antall-studier-som-finner-en-statistisk-signifikant-effekt-ved-et-signifikansnivå-på-0.05-for-hver-utvalgsstørrelse">Oppgave 6: Antall studier som finner en statistisk signifikant effekt ved et signifikansnivå på 0.05 for hver utvalgsstørrelse</h2>
+<section id="resultater" class="level3">
+<h3 class="anchored" data-anchor-id="resultater">Resultater</h3>
+<p>Utvalg med n = 8: 234 av 1000 studier (23.4%) finner en signifikant effekt. Utvalg med n = 40: 863 av 1000 studier (86.3%) finner en signifikant effekt.</p>
+</section>
+<section id="effekten-av-utvalgsstørrelse" class="level3">
+<h3 class="anchored" data-anchor-id="effekten-av-utvalgsstørrelse">Effekten av Utvalgsstørrelse</h3>
+<p>Det er en klar forskjell i andelen signifikante resultater mellom de to utvalgsstørrelsene. Det høyere tallet for n = 40 indikerer at større utvalg har en høyere sjanse for å oppdage en signifikant effekt. Dette stemmer overens med prinsippene i statistisk teori, der større utvalg gir mer presise estimater og reduserer standardfeilen.</p>
+</section>
+<section id="statistisk-power-1" class="level3">
+<h3 class="anchored" data-anchor-id="statistisk-power-1">Statistisk Power</h3>
+<p>Den høyere andelen signifikante resultater for n = 40 indikerer også en høyere statistisk power. Større utvalg gjør det lettere å oppdage reelle effekter, noe som kan forklares ved at variasjonen reduseres.</p>
+</section>
+<section id="konsekvenser-for-forskning" class="level3">
+<h3 class="anchored" data-anchor-id="konsekvenser-for-forskning">Konsekvenser for forskning</h3>
+<p>Forskerne bør være oppmerksomme på hvordan utvalgsstørrelse kan påvirke resultatene. Mindre utvalg kan føre til feilaktige konklusjoner, mens større utvalg øker påliteligheten av funnene.</p>
+</section>
+<section id="konklusjon-1" class="level3">
+<h3 class="anchored" data-anchor-id="konklusjon-1">Konklusjon</h3>
+<p>Resultatene understreker viktigheten av å velge tilstrekkelig utvalgsstørrelse for å oppnå meningsfulle og pålitelige resultater i forskning.</p>
+</section>
+</section>
+<section id="oppgave-7-tar-utgangspunkt-i-de-tidligere-resultatene-fra-power-beregningen-om-de-ulike-utvalgsstørrelsene-stemmer-overens-med-resultatene-fra-simuleringen." class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-7-tar-utgangspunkt-i-de-tidligere-resultatene-fra-power-beregningen-om-de-ulike-utvalgsstørrelsene-stemmer-overens-med-resultatene-fra-simuleringen.">Oppgave 7: tar utgangspunkt i de tidligere resultatene fra power-beregningen om de ulike utvalgsstørrelsene stemmer overens med resultatene fra simuleringen.</h2>
+<section id="power" class="level3">
+<h3 class="anchored" data-anchor-id="power">Power</h3>
+<p>En power på 0.8694 indikerer at det er omtrent 87% sjanse for å oppdage en statistisk signifikant effekt hvis den reelle effekten faktisk eksisterer (<span class="citation" data-cites="cohen1988">Cohen (<a href="#ref-cohen1988" role="doc-biblioref">1988</a>)</span>). Dette betyr at dersom det er en reell effekt av størrelsen 0.5 (som tilsvarer en effektstørrelse på 1.5 delt på 3), vil 87 av 100 studier kunne finne denne effekten når utvalgsstørrelsen er 40.</p>
+</section>
+<section id="betydningen-av-utvalgsstørrelse" class="level3">
+<h3 class="anchored" data-anchor-id="betydningen-av-utvalgsstørrelse">Betydningen av utvalgsstørrelse</h3>
+<p>Denne poweren er høy, noe som tyder på at et større utvalg (n = 40) er gunstig for å oppdage signifikante resultater. I kontrast, med et mindre utvalg, som n = 8, ville poweren vært lavere, noe som forklarer hvorfor færre studier kunne oppdage signifikante resultater i simuleringen (<span class="citation" data-cites="bennett2004">Bennett et al. (<a href="#ref-bennett2004" role="doc-biblioref">2004</a>)</span>).</p>
+</section>
+<section id="praktisk-implikasjon" class="level3">
+<h3 class="anchored" data-anchor-id="praktisk-implikasjon">Praktisk implikasjon</h3>
+<p>Med en power på 87% kan forskere være mer trygge på at deres resultater vil være pålitelige, spesielt når de tester hypoteser. Det er generelt anbefalt å ha en power på 80% eller høyere i planleggingen av studier (<span class="citation" data-cites="faul2009">Faul et al. (<a href="#ref-faul2009" role="doc-biblioref">2009</a>)</span>).</p>
+</section>
+<section id="kontekst-av-simuleringen" class="level3">
+<h3 class="anchored" data-anchor-id="kontekst-av-simuleringen">Kontekst av simuleringen</h3>
+<p>Når vi ser på resultatene fra simuleringen, hvor 863 av 1000 studier med n = 40 resulterte i signifikante funn, stemmer dette godt overens med den beregnede poweren. Det viser at det er en god sjanse for å oppdage effekten når utvalget er tilstrekkelig stort.</p>
+</section>
+<section id="oppsummering-2" class="level3">
+<h3 class="anchored" data-anchor-id="oppsummering-2">Oppsummering</h3>
+<p>I lys av disse resultatene kan vi konkludere med at tilstrekkelig utvalgsstørrelse er avgjørende for å oppnå høy statistisk power, noe som øker sjansen for å oppdage reelle effekter i studier.</p>
+</section>
+</section>
+<section id="oppgave-8" class="level2">
+<h2 class="anchored" data-anchor-id="oppgave-8">Oppgave 8:</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 93</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0465</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Oppgave_3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="resultat" class="level3">
+<h3 class="anchored" data-anchor-id="resultat">Resultat</h3>
+<p>Antall “false positive” resultater (p-verdier ≤ 0.05) er 97 studier. Andel “false positive” resultater er 0.0485, eller omtrent 4.85%. Dette er svært nær 5%, noe som stemmer med forventningen basert på et signifikansnivå på 5%. Dette bekrefter at når man utfører mange studier under nullhypotesen, kan man forvente at omtrent 5% av dem vil resultere i “false positive” funn.</p>
+</section>
+<section id="konklusjon-2" class="level3">
+<h3 class="anchored" data-anchor-id="konklusjon-2">Konklusjon</h3>
+<p>Med et signifikansnivå på 5%, og basert på dataene som er analysert, får vi omtrent 4.85% falske positive resultater. Dette er i tråd med teorien, der man forventer rundt 5% falske positive når nullhypotesen er sann og man bruker en p-verdi grense på 0.05.</p>
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bennett2004" class="csl-entry" role="listitem">
+Bennett, David A. et al. 2004. <span>“Power and Sample Size for Case-Control Studies.”</span> <em>International Journal of Epidemiology</em> 33 (5): 1031–39.
+</div>
+<div id="ref-biau2008" class="csl-entry" role="listitem">
+Biau, Damien J., Simon Kerneis, and Raphael Porcher. 2008. <span>“Statistics in Medicine: A Guide to the Common Statistical Tests in Clinical Research.”</span> <em>Journal of Clinical Epidemiology</em> 61 (5): 485–94.
+</div>
+<div id="ref-bland1996" class="csl-entry" role="listitem">
+Bland, J. Martin, and Douglas G. Altman. 1996. <span>“Statistics Notes: Measuring Agreement in Method Comparison Studies.”</span> <em>BMJ</em> 312 (7032): 307–10.
+</div>
+<div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. Hillsdale, NJ: Lawrence Erlbaum Associates.
+</div>
+<div id="ref-faul2009" class="csl-entry" role="listitem">
+Faul, Franz, Edgar Erdfelder, Alan-G. Lang, and Andreas Buchner. 2009. <span>“Statistical Power Analyses Using g*power 3.1: Tests for Correlation and Regression Analyses.”</span> <em>Behavior Research Methods</em> 41 (4): 1149–60.
+</div>
+<div id="ref-field2018" class="csl-entry" role="listitem">
+Field, Andy. 2018. <em>Discovering Statistics Using IBM SPSS Statistics</em>. 5th ed. London: Sage Publications.
+</div>
+<div id="ref-harlow2016" class="csl-entry" role="listitem">
+Harlow, Lisa L., Stanley A. Muliak, and James H. Steiger. 2016. <em>Statistical Methods for Meta-Analysis</em>. Academic Press.
+</div>
+<div id="ref-lumley2010" class="csl-entry" role="listitem">
+Lumley, Thomas. 2010. <em>Complex Surveys: A Guide to Analysis Using r</em>. Wiley.
+</div>
+<div id="ref-moore2016" class="csl-entry" role="listitem">
+Moore, David S., George P. McCabe, and Bruce A. Craig. 2016. <em>Introduction to the Practice of Statistics</em>. W.H. Freeman.
+</div>
+<div id="ref-moore2013" class="csl-entry" role="listitem">
+Moore, David S., William I. Notz, and Michael A. Fligner. 2013. <em>The Basic Practice of Statistics</em>. 7th ed. New York: W. H. Freeman; Company.
+</div>
+<div id="ref-wackerly2008" class="csl-entry" role="listitem">
+Wackerly, Dennis, William Mendenhall, and Richard L. Scheaffer. 2008. <em>Mathematical Statistics with Applications</em>. Cengage Learning.
+</div>
+<div id="ref-wasserstein2016" class="csl-entry" role="listitem">
+Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The ASA’s Statement on p-Values: Context, Process, and Purpose.”</span> <em>The American Statistician</em> 70 (1): 129–33.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

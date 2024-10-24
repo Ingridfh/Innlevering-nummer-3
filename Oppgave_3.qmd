@@ -1,0 +1,431 @@
+---
+title: "Assignment 3"
+author: "Ingrid Hansen"
+format:
+  html:
+    toc: true             # Aktiverer innholdsfortegnelsen
+    toc-location: left     # Setter innholdsfortegnelsen til venstre
+    number-sections: false  # Nummerer seksjoner
+execute:
+  echo: false             # Skjuler koden, men viser resultater
+bibliography: kilder.bib   # Legg til din BibTeX-fil her
+---
+
+
+
+## Oppgave: 1
+
+### Simulering av populasjonen, trekke ut to tilfeldige utvalg (med størrelsene 8 og 40), tilpasse lineære modeller og analysere resultatene.
+
+```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE}
+
+# Laster inn nødvendige pakker
+library(tidyverse)
+
+# Setter seed for å gjøre resultatene reproduserbare
+set.seed(1)
+
+# Simulerer populasjonen med 1 million verdier, middelverdi 1.5 og standardavvik 3
+
+population <- rnorm(1000000, mean = 1.5, sd = 3)
+
+# Trekker ut to tilfeldige utvalg fra populasjonen, ett med n=8 og ett med n=40
+samp1 <- data.frame(y = sample(population, 8, replace = FALSE))  # Utvalg med n = 8
+samp2 <- data.frame(y = sample(population, 40, replace = FALSE))  # Utvalg med n = 40
+
+# Tilpasser en lineær modell for begge utvalgene (y ~ 1 betyr bare å estimere gjennomsnittet)
+m1 <- lm(y ~ 1, data = samp1)  # Modell for n = 8
+m2 <- lm(y ~ 1, data = samp2)  # Modell for n = 40
+
+# Viser oppsummering av modellene
+summary(m1)
+summary(m2)
+
+
+```
+
+### Analyse av resultatene
+
+```{r}
+# Analyse av resultatene fra modellene
+cat("Resultater fra modell for n = 8:\n")
+cat("Estimert gjennomsnitt (Intercept):", coef(m1)[1], "\n")
+cat("Standardfeil (SE):", summary(m1)$coefficients[1, 2], "\n")
+cat("t-verdi:", summary(m1)$coefficients[1, 3], "\n")
+cat("p-verdi:", summary(m1)$coefficients[1, 4], "\n")
+
+cat("\nResultater fra modell for n = 40:\n")
+cat("Estimert gjennomsnitt (Intercept):", coef(m2)[1], "\n")
+cat("Standardfeil (SE):", summary(m2)$coefficients[1, 2], "\n")
+cat("t-verdi:", summary(m2)$coefficients[1, 3], "\n")
+cat("p-verdi:", summary(m2)$coefficients[1, 4], "\n")
+
+
+```
+
+### Oppsummering
+
+Modell for n = 8 (m1) Estimert gjennomsnitt (Intercept): 1.84
+
+Dette er gjennomsnittet av de 8 observasjonene i utvalget, som indikerer at den gjennomsnittlige forskjellen mellom de to behandlingene er estimert til å være 1.84 (Field, 2013). Standardfeil (SE): 1.25
+
+Standardfeilen representerer usikkerheten i estimatet av gjennomsnittet. En høy SE (1.25) indikerer stor variasjon i dataene, sannsynligvis på grunn av den lille størrelsen på utvalget (n = 8), som kan føre til større usikkerhet (@cohen1988). t-verdi: 1.47
+
+t-verdien er forholdet mellom estimatet og standardfeilen. En t-verdi på 1.47 indikerer at estimatet er 1.47 standardfeil unna null (@harlow2016). p-verdi: 0.185
+
+P-verdien representerer sannsynligheten for å observere en t-verdi så ekstrem som den vi har, under antagelsen om at nullhypotesen er sann. En p-verdi på 0.185 er høyere enn 0.05, noe som indikerer at vi ikke kan avvise nullhypotesen (@wasserstein2016). Modell for n = 40 (m2) Estimert gjennomsnitt (Intercept): 1.56
+
+Gjennomsnittet av de 40 observasjonene er 1.56, som også indikerer en forskjell mellom behandlingene. Standardfeil (SE): 0.48
+
+Standardfeilen er mye lavere i dette tilfellet, noe som indikerer at estimatet av gjennomsnittet er mer presist (@bland1996). t-verdi: 3.28
+
+T-verdien på 3.28 viser at estimatet er 3.28 standardfeil unna null, noe som tyder på en sterkere effekt (@cohen1988). p-verdi: 0.0022
+
+P-verdien er betydelig lavere enn 0.05, noe som indikerer at vi kan avvise nullhypotesen, og at det er en statistisk signifikant forskjell mellom behandlingene (@wasserstein2016).
+
+## Oppgave 2: Forskjeller mellom m1 og m2
+
+### Utvalgsstørrelse
+
+Den mest åpenbare forskjellen mellom de to studiene er størrelsen på utvalget. Utvalg 1 (m1) hadde kun 8 observasjoner, mens utvalg 2 (m2) hadde 40 observasjoner. Større utvalg gir mer presise estimater av gjennomsnittet, noe som reduserer usikkerheten (standardfeilen) i analysen. Dette forklarer hvorfor standardfeilen i m2 er betydelig lavere enn i m1 (@cohen1988).
+
+### Variabilitet i Dataene
+
+Variabiliteten i dataene påvirker både standardfeilen og t-verdien. I m1 er det større variasjon i residualene (3.54) sammenlignet med m2 (3.02). Høyere variasjon kan føre til høyere standardfeil og lavere t-verdi, noe som resulterer i høyere p-verdi i m1 (@field2018).
+
+### Statistisk Signifikans
+
+Resultatene fra m2 er statistisk signifikante med en p-verdi på 0.0022, mens m1 har en p-verdi på 0.185, som ikke er signifikant. Dette viser hvordan større utvalg øker sjansen for å oppdage reelle effekter. Større utvalg reduserer sjansen for feilaktige negative resultater (Type II-feil) (@wasserstein2016).
+
+### Estimater av Effektstørrelse
+
+Estimert gjennomsnitt for m1 er 1.84, mens det for m2 er 1.56. Forskjellen mellom estimatene kan delvis tilskrives støyen som følger med et lite utvalg. Større utvalg som i m2 gir en mer stabil og pålitelig vurdering av den faktiske effekten (@cohen1988).
+
+### Konfidensintervaller
+
+Et annet aspekt er konfidensintervallene for estimatene. For m1, som har høyere standardfeil, vil konfidensintervallet være bredere, noe som indikerer større usikkerhet om den sanne effekten. I m2 vil konfidensintervallet være smalere og gi en mer presis indikasjon på den faktiske effekten (@bland1996).
+
+### Konklusjon
+
+Forskjellene mellom resultatene fra m1 og m2 illustrerer viktigheten av utvalgsstørrelse i statistiske analyser. Større utvalg gir mer presise estimater og øker sjansen for å oppdage statistisk signifikante forskjeller. Dette understreker nødvendigheten av å planlegge tilstrekkelige utvalgsstørrelser i forskningsdesign for å oppnå pålitelige resultater (@field2018) (@cohen1988).
+
+```{r}
+# plotter t - fordelingen
+x_values <- seq(-4, 4, length.out = 100)
+y_values <- dt(x_values, df = 10)
+
+df <- data.frame(x = x_values, y = y_values)
+
+# Plot
+ggplot(df, aes(x = x, y = y)) +
+  geom_line() +
+  geom_area(data = subset(df, x >= 1.47 | x <= -1.47), fill = "blue", alpha = 0.5) +
+  geom_vline(xintercept = 1.47, linetype = "dashed", color = "red") +
+  labs(title = "T Distribution with Shaded Areas",
+       x = "T Value", y = "Density") +
+  theme_minimal()
+
+```
+
+## Oppgave 3: Hvorfor bruker vi skyggeområdet i de nedre og øvre endene av t-fordelingen?
+
+T-fordelingen er en viktig sannsynlighetsfordeling som brukes i hypotesetesting, spesielt med små utvalg. Den har tykkere haler sammenlignet med normalfordelingen, noe som reflekterer usikkerheten som er til stede når utvalget er lite (@moore2013).
+
+Skyggeområdet i plottet vårt representerer de t-verdiene som er like ekstreme eller mer ekstreme enn vår observerte t-verdi (1.47), både på den positive og negative siden. Dette området er avgjørende for å beregne p-verdien, som i vårt tilfelle er 0.185. Denne p-verdien indikerer at 18.5% av t-verdiene ville være like ekstreme eller mer ekstreme enn den observerte t-verdien hvis nullhypotesen er sann (@field2018).
+
+Plottet vårt visualiserer denne fordelingen og skyggeområdet, og gir oss en intuitiv forståelse av resultatene fra hypotesetesting. I sum gir skyggeområdet oss muligheten til å vurdere styrken av bevisene mot nullhypotesen, og derfor er det en essensiell del av den statistiske analysen (@cohen1988).
+
+## Oppgave 4:
+
+```{r, echo = FALSE, results = 'hide'}
+# Create data frames to store the model estimates
+results_8 <- data.frame(estimate = rep(NA, 1000), 
+                      se = rep(NA, 1000), 
+                      pval = rep(NA, 1000), 
+                      n = 8)  
+
+results_40 <- data.frame(estimate = rep(NA, 1000), 
+                      se = rep(NA, 1000), 
+                      pval = rep(NA, 1000), 
+                      n = 40)
+
+# A for loop used to sample 1000 studies, each iteration (i) will draw a new sample
+# from the population. 
+
+for(i in 1:1000) {
+  
+  # Draw a sample 
+  samp1 <- data.frame(y = sample(population, 8, replace = FALSE))
+  samp2 <- data.frame(y = sample(population, 40, replace = FALSE))
+
+  # Model the data
+  m1 <- lm(y ~ 1, data = samp1)
+  m2 <- lm(y ~ 1, data = samp2)
+  
+  # Extract values from the models
+  results_8[i, 1] <- coef(summary(m1))[1, 1]
+  results_8[i, 2] <- coef(summary(m1))[1, 2]
+  results_8[i, 3] <- coef(summary(m1))[1, 4]
+
+  results_40[i, 1] <- coef(summary(m2))[1, 1]
+  results_40[i, 2] <- coef(summary(m2))[1, 2]
+  results_40[i, 3] <- coef(summary(m2))[1, 4]
+  
+  
+}
+
+
+# Save the results in a combined data frame
+
+results <- bind_rows(results_8, results_40)
+
+```
+
+```{r}
+# Beregn standardavviket for estimatet
+std_dev_8 <- sd(results$estimate[results$n == 8])
+std_dev_40 <- sd(results$estimate[results$n == 40])
+
+# Beregn gjennomsnittet av SE
+mean_se_8 <- mean(results$se[results$n == 8])
+mean_se_40 <- mean(results$se[results$n == 40])
+
+# Vis resultatene
+cat("Standardavvik for n=8:", std_dev_8, "\n")
+cat("Gjennomsnittlig SE for n=8:", mean_se_8, "\n")
+cat("Standardavvik for n=40:", std_dev_40, "\n")
+cat("Gjennomsnittlig SE for n=40:", mean_se_40, "\n")
+
+```
+
+### Forklaring av Resultatene
+
+Standardavvik (SD) vs. Standard Error (SE):
+
+Standardavviket for n=8 er høyere enn for n=40, noe som indikerer større variasjon i estimatene for det mindre utvalget. Dette er i tråd med funnene fra (@field2018) som beskriver hvordan mindre utvalg fører til høyere usikkerhet i estimatene.
+
+Standardfeilen (SE) er også høyere for n=8, noe som støtter prinsippet om at mindre utvalg fører til større usikkerhet. Ifølge (@moore2016) er SE en viktig målestokk for hvor presist et estimat representerer det sanne parameteret.
+
+### Sammenligning av SE og SD:
+
+Gjennomsnittlig SE for begge utvalg er nær standardavviket for estimatene. Dette er typisk, da SE gir en indikasjon på variasjonen i estimatene i forhold til utvalgsstørrelsen (@lumley2010). For n=40 er både standardavviket og SE betydelig lavere, noe som tyder på mer stabile og pålitelige estimater med større utvalg. Dette bekreftes av (@biau2008), som viser at større utvalg gir mer presise estimater.
+
+### Definere Standard Error (SE)
+
+Standardfeil (SE) kan defineres som et mål på usikkerheten i estimatet, som indikerer hvor mye estimatet kan forventes å variere fra det sanne befolkningsparameteret. SE er essensiell i hypotesetesting og konfidensintervall-estimering (@wackerly2008).
+
+### Oppsummering
+
+Resultatene viser hvordan utvalgsstørrelse påvirker variabiliteten i estimater, og understreker betydningen av å bruke tilstrekkelige utvalg for å oppnå pålitelige resultater i statistiske analyser.
+
+## Oppgave 5: Lager histogram av P - verdier fra de to forskjellige utvalgsstørrelsene
+
+```{r}
+# Laster inn nødvendige pakker
+library(ggplot2)
+library(dplyr)
+
+# Lager histogrammer av p-verdier
+results %>%
+  ggplot(aes(pval)) + 
+  geom_histogram(binwidth = 0.05, fill = "blue", color = "black", alpha = 0.7) +
+  facet_wrap(~ n) +
+  labs(title = "Histogram of p-values by Sample Size",
+       x = "p-value",
+       y = "Frequency") +
+  theme_minimal()
+
+```
+
+### Andelen Signifikante Tester
+
+```{r}
+
+# Teller andelen signifikante resultater
+significant_results <- results %>%
+  filter(pval < 0.05) %>%
+  group_by(n) %>%
+  summarise(sig_results = n()/1000)
+
+print(significant_results)
+
+```
+
+### Statistisk Power
+
+```{r}
+
+if (!requireNamespace("pwr", quietly = TRUE)) {
+  install.packages("pwr")
+}
+
+```
+
+```{r}
+
+library(pwr)
+
+```
+
+```{r}
+
+power_result <- pwr.t.test(n = 40, sig.level = 0.05, d = 1.5/3, type = "one.sample")
+print(power_result)
+
+```
+
+### Tolkning av Resultatene
+
+Statistisk Power: En power på omtrent 0.87 indikerer at det er 87% sjanse for å oppdage en faktisk effekt dersom den eksisterer. Dette er generelt ansett som en god power, ettersom en power over 0.80 ofte er ønskelig i forskningsdesign.
+
+### Effekt av Utvalgsstørrelse
+
+Når man sammenligner med p-verdiene fra histogrammene for de to utvalgsstørrelsene (8 og 40), ser man at utvalget med 40 har flere signifikante resultater (p \< 0.05) enn utvalget med 8. Dette skyldes at større utvalg gir mer presise estimater og dermed høyere sjanser for å oppdage effekter.
+
+## Oppgave 6: Antall studier som finner en statistisk signifikant effekt ved et signifikansnivå på 0.05 for hver utvalgsstørrelse
+
+```{r, echo = FALSE, results = 'hide'}
+
+# Antall signifikante studier for hver utvalgsstørrelse
+significant_results <- results %>%
+  filter(pval < 0.05) %>%
+  group_by(n) %>%
+  summarise(sig_results = n())
+
+# Vis resultatene
+print(significant_results)
+
+```
+
+### Resultater
+
+Utvalg med n = 8: 234 av 1000 studier (23.4%) finner en signifikant effekt. Utvalg med n = 40: 863 av 1000 studier (86.3%) finner en signifikant effekt.
+
+### Effekten av Utvalgsstørrelse
+
+Det er en klar forskjell i andelen signifikante resultater mellom de to utvalgsstørrelsene. Det høyere tallet for n = 40 indikerer at større utvalg har en høyere sjanse for å oppdage en signifikant effekt. Dette stemmer overens med prinsippene i statistisk teori, der større utvalg gir mer presise estimater og reduserer standardfeilen.
+
+### Statistisk Power
+
+Den høyere andelen signifikante resultater for n = 40 indikerer også en høyere statistisk power. Større utvalg gjør det lettere å oppdage reelle effekter, noe som kan forklares ved at variasjonen reduseres.
+
+### Konsekvenser for forskning
+
+Forskerne bør være oppmerksomme på hvordan utvalgsstørrelse kan påvirke resultatene. Mindre utvalg kan føre til feilaktige konklusjoner, mens større utvalg øker påliteligheten av funnene.
+
+### Konklusjon
+
+Resultatene understreker viktigheten av å velge tilstrekkelig utvalgsstørrelse for å oppnå meningsfulle og pålitelige resultater i forskning.
+
+## Oppgave 7: tar utgangspunkt i de tidligere resultatene fra power-beregningen om de ulike utvalgsstørrelsene stemmer overens med resultatene fra simuleringen.
+
+### Power
+
+En power på 0.8694 indikerer at det er omtrent 87% sjanse for å oppdage en statistisk signifikant effekt hvis den reelle effekten faktisk eksisterer (@cohen1988). Dette betyr at dersom det er en reell effekt av størrelsen 0.5 (som tilsvarer en effektstørrelse på 1.5 delt på 3), vil 87 av 100 studier kunne finne denne effekten når utvalgsstørrelsen er 40.
+
+### Betydningen av utvalgsstørrelse
+
+Denne poweren er høy, noe som tyder på at et større utvalg (n = 40) er gunstig for å oppdage signifikante resultater. I kontrast, med et mindre utvalg, som n = 8, ville poweren vært lavere, noe som forklarer hvorfor færre studier kunne oppdage signifikante resultater i simuleringen (@bennett2004).
+
+### Praktisk implikasjon
+
+Med en power på 87% kan forskere være mer trygge på at deres resultater vil være pålitelige, spesielt når de tester hypoteser. Det er generelt anbefalt å ha en power på 80% eller høyere i planleggingen av studier (@faul2009).
+
+### Kontekst av simuleringen
+
+Når vi ser på resultatene fra simuleringen, hvor 863 av 1000 studier med n = 40 resulterte i signifikante funn, stemmer dette godt overens med den beregnede poweren. Det viser at det er en god sjanse for å oppdage effekten når utvalget er tilstrekkelig stort.
+
+### Oppsummering
+
+I lys av disse resultatene kan vi konkludere med at tilstrekkelig utvalgsstørrelse er avgjørende for å oppnå høy statistisk power, noe som øker sjansen for å oppdage reelle effekter i studier.
+
+## Oppgave 8:
+
+```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE}
+
+population <- rnorm(1000000, mean = 0, sd = 3)
+
+
+#Create data frames to store the model estimates
+results_8 <- data.frame(estimate = rep(NA, 1000), 
+                      se = rep(NA, 1000), 
+                      pval = rep(NA, 1000), 
+                      n = 8)  
+
+results_40 <- data.frame(estimate = rep(NA, 1000), 
+                      se = rep(NA, 1000), 
+                      pval = rep(NA, 1000), 
+                      n = 40)
+
+# A for loop used to sample 1000 studies, each iteration (i) will draw a new sample
+# from the population. 
+
+for(i in 1:1000) {
+  
+  # Draw a sample 
+  samp1 <- data.frame(y = sample(population, 8, replace = FALSE))
+  samp2 <- data.frame(y = sample(population, 40, replace = FALSE))
+
+  # Model the data
+  m1 <- lm(y ~ 1, data = samp1)
+  m2 <- lm(y ~ 1, data = samp2)
+  
+  # Extract values from the models
+  results_8[i, 1] <- coef(summary(m1))[1, 1]
+  results_8[i, 2] <- coef(summary(m1))[1, 2]
+  results_8[i, 3] <- coef(summary(m1))[1, 4]
+
+  results_40[i, 1] <- coef(summary(m2))[1, 1]
+  results_40[i, 2] <- coef(summary(m2))[1, 2]
+  results_40[i, 3] <- coef(summary(m2))[1, 4]
+  
+  
+}
+
+
+# Save the results in a combined data frame
+
+results_null <- bind_rows(results_8, results_40)
+
+```
+
+```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE}
+
+head(results_null)
+
+```
+
+```{r}
+
+# Antall "false positive" resultater
+false_positives <- sum(results_null$pval <= 0.05)
+
+# Totalt antall studier
+total_studies <- nrow(results_null)
+
+# Andel "false positive" resultater
+false_positive_rate <- false_positives / total_studies
+
+# Print resultatene
+false_positives
+false_positive_rate
+
+```
+
+```{r}
+ggplot(results_null, aes(pval)) + 
+  geom_histogram(binwidth = 0.1, color = "black", fill = "blue", alpha = 0.7) +
+  facet_wrap(~ n) +
+  labs(title = "Histogram of P-Values for Different Sample Sizes",
+       x = "P-Value", y = "Number of Studies") +
+  theme_minimal()
+
+```
+
+### Resultat
+
+Antall "false positive" resultater (p-verdier ≤ 0.05) er 97 studier. Andel "false positive" resultater er 0.0485, eller omtrent 4.85%. Dette er svært nær 5%, noe som stemmer med forventningen basert på et signifikansnivå på 5%. Dette bekrefter at når man utfører mange studier under nullhypotesen, kan man forvente at omtrent 5% av dem vil resultere i "false positive" funn.
+
+### Konklusjon
+
+Med et signifikansnivå på 5%, og basert på dataene som er analysert, får vi omtrent 4.85% falske positive resultater. Dette er i tråd med teorien, der man forventer rundt 5% falske positive når nullhypotesen er sann og man bruker en p-verdi grense på 0.05.
